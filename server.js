@@ -2,12 +2,15 @@ import postgres from "postgres";
 import express from "express";
 import dotenv from "dotenv";
 import os from "os";
+import cors from "cors";
 
 dotenv.config();
 
 const app = express();
 console.log(process.env.LINK_DB);
 const sql = postgres(process.env.LINK_DB);
+
+app.use(cors());
 
 app.get("/drop", async (req, res) => {
     await sql`DROP TABLE IF EXISTS visits`;
